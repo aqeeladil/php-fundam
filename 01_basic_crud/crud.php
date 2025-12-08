@@ -74,7 +74,7 @@ function getUser($id) {
     foreach ($db as $user) {
 
         // Check if 'id' exists and compare strictly
-        if (isset($user["id"]) && $user["id"] === $id) {
+        if (isset($user["id"]) && $user["id"] == $id) {
             return $user;
         }
     }
@@ -87,7 +87,7 @@ function updateUser($id, $newName, $newEmail) {
     $db = readDB();
     
     foreach ($db as $i => $user) {
-        if ($user["id"] === $id) {
+        if ($user["id"] == $id) {
             $db[$i]["name"] = $newName;
             $db[$i]["email"] = $newEmail;
             saveDB($db);

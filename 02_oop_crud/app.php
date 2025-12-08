@@ -44,7 +44,7 @@ while (true) {
 
         case 5:
             $id = readline("Enter ID: ");
-            echo $repo->delete($id) ? "Deleted\n" : "Not found\n";
+            echo $repo->delete($id) ? "User Deleted\n" : "Not found\n";
             break;
 
         case 6:
