@@ -8,12 +8,17 @@ class Database {
     private function __construct() {
         $this->conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
         if ($this->conn->connect_error) {
-            die("Connection failed: " . $this->conn->connect_error);
-        }
+            throw new Exception("Connection failed: " . $this->conn->connect_error);
+        }    
     }
 
+    // Prevent cloning
     private function __clone() {}
-    public function __wakeup() {}
+
+    // Prevent unserialization
+    public function __wakeup() {
+        throw new Exception("Cannot unserialize singleton");    # this will 
+    }
 
     public static function getInstance() {
         if (!self::$instance) {

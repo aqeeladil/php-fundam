@@ -5,6 +5,8 @@ class User {
     private $conn;
 
     public function __construct() {
+        // $db = Database::getInstance();
+        // $this->conn = $db->getConnection();
         $this->conn = Database::getInstance()->getConnection();
     }
 
@@ -12,6 +14,9 @@ class User {
         $stmt = $this->conn->prepare("SELECT * FROM users WHERE username=?");
         $stmt->bind_param("s", $username);
         $stmt->execute();
+
+        // $result = $stmt->get_result();
+        // $user   = $result->fetch_assoc();
         $user = $stmt->get_result()->fetch_assoc();
 
         if ($user && password_verify($password, $user['password'])) {
@@ -47,9 +52,14 @@ class User {
         $_SESSION = [];
         if (ini_get("session.use_cookies")) {
             $params = session_get_cookie_params();
-            setcookie(session_name(), '', time() - 42000,
-                $params["path"], $params["domain"],
-                $params["secure"], $params["httponly"]
+            setcookie(
+                session_name(),
+                '',
+                time() - 42000,
+                $params["path"], 
+                $params["domain"],
+                $params["secure"], 
+                $params["httponly"]
             );
         }
         session_destroy();
